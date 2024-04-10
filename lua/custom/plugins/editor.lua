@@ -72,5 +72,9 @@ return {
         },
       },
     },
+    -- Read/Write files with sudo
+    {
+      'lambdalisue/suda.vim'
+    }
   },
 }

@@ -48,7 +48,7 @@ require('lazy').setup({
 
       -- Useful status updates for LSP
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-      { 'j-hui/fidget.nvim', opts = {} },
+      { 'j-hui/fidget.nvim',       opts = {} },
 
       -- Additional lua configuration, makes nvim stuff amazing!
       'folke/neodev.nvim',
@@ -127,28 +127,28 @@ require('lazy').setup({
         -- visual mode
         map('v', '<leader>gs', function()
           gs.stage_hunk { vim.fn.line '.', vim.fn.line 'v' }
-        end, { desc = 'stage git hunk' })
+        end, { desc = 'Stage git hunk' })
         map('v', '<leader>gr', function()
           gs.reset_hunk { vim.fn.line '.', vim.fn.line 'v' }
-        end, { desc = 'reset git hunk' })
+        end, { desc = 'Reset git hunk' })
         -- normal mode
-        map('n', '<leader>gs', gs.stage_hunk, { desc = 'git stage hunk' })
-        map('n', '<leader>gr', gs.reset_hunk, { desc = 'git reset hunk' })
-        map('n', '<leader>gS', gs.stage_buffer, { desc = 'git Stage buffer' })
-        map('n', '<leader>gu', gs.undo_stage_hunk, { desc = 'undo stage hunk' })
-        map('n', '<leader>gR', gs.reset_buffer, { desc = 'git Reset buffer' })
-        map('n', '<leader>gp', gs.preview_hunk, { desc = 'preview git hunk' })
+        map('n', '<leader>gs', gs.stage_hunk, { desc = 'Git stage hunk' })
+        map('n', '<leader>gr', gs.reset_hunk, { desc = 'Git reset hunk' })
+        map('n', '<leader>gS', gs.stage_buffer, { desc = 'Git Stage buffer' })
+        map('n', '<leader>gu', gs.undo_stage_hunk, { desc = 'Undo stage hunk' })
+        map('n', '<leader>gR', gs.reset_buffer, { desc = 'Git Reset buffer' })
+        map('n', '<leader>gp', gs.preview_hunk, { desc = 'Preview git hunk' })
         map('n', '<leader>gb', function()
           gs.blame_line { full = false }
-        end, { desc = 'git blame line' })
-        map('n', '<leader>gd', gs.diffthis, { desc = 'git diff against index' })
+        end, { desc = 'Git blame line' })
+        map('n', '<leader>gd', gs.diffthis, { desc = 'Git diff against index' })
         map('n', '<leader>gD', function()
           gs.diffthis '~'
-        end, { desc = 'git diff against last commit' })
+        end, { desc = 'Git diff against last commit' })
 
         -- Toggles
-        map('n', '<leader>tb', gs.toggle_current_line_blame, { desc = 'toggle git blame line' })
-        map('n', '<leader>td', gs.toggle_deleted, { desc = 'toggle git show deleted' })
+        map('n', '<leader>tb', gs.toggle_current_line_blame, { desc = 'Toggle git blame line' })
+        map('n', '<leader>td', gs.toggle_deleted, { desc = 'Toggle git show deleted' })
 
         -- Text object
         map({ 'o', 'x' }, 'ih', ':<C-U>Gitsigns select_hunk<CR>', { desc = 'select git hunk' })
@@ -311,16 +311,19 @@ vim.api.nvim_create_user_command('LiveGrepGitRoot', live_grep_git_root, {})
 
 -- [[ Personal keybindings ]]
 vim.keymap.set('n', '<leader>w', '<cmd>write<CR>', { desc = 'Write' })
+vim.keymap.set('n', '<leader>W', '<cmd>SudaWrite<CR>', { desc = 'Write(sudo)' })
 vim.keymap.set('n', '<leader>q', '<cmd>qa<CR>', { desc = 'Quit all' })
 vim.keymap.set('n', '<leader>Q', '<cmd>q<CR>', { desc = 'Quit' })
 
 vim.keymap.set('n', '<leader>ff', function()
   require('telescope.builtin').find_files { hidden = true, no_ignore = true }
-end, { desc = 'Find files' })
+end, { desc = 'Find files (all)' })
 vim.keymap.set('n', '<leader>fF', require('telescope.builtin').find_files, { desc = 'Find files' })
+vim.keymap.set('n', '<leader>fS', '<cmd>:SudaRead<CR>', { desc = 'Reopen file with sudo' })
 vim.keymap.set('n', '<leader>fr', require('telescope.builtin').oldfiles, { desc = 'Find recently opened files' })
-vim.keymap.set('n', '<leader>ft', '<cmd>Neotree<CR>', { desc = 'Open file explorer' })
-vim.keymap.set('n', '<leader>fT', '<cmd>Neotree toggle<CR>', { desc = 'Toggle file explorer' })
+vim.keymap.set('n', '<leader>fe', '<cmd>Neotree<CR>', { desc = 'Focus file explorer' })
+vim.keymap.set('n', '<leader>fE', '<cmd>Neotree toggle<CR>', { desc = 'Toggle file explorer' })
+vim.keymap.set('n', '<leader>te', '<cmd>Neotree toggle<CR>', { desc = 'Toggle file explorer' })
 vim.keymap.set('n', '<leader>c', function()
   local bd = require('mini.bufremove').delete
   if vim.bo.modified then
